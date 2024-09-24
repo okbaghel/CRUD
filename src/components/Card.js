@@ -28,7 +28,7 @@ const Card = async () => {
             {topics.length === 0 ? (
                 <div className="w-full flex flex-col items-center justify-center  p-4  shadow-md rounded-lg mt-5 mb-5">
                     <h1 className="text-gray-400 text-xl font-semibold">No data available</h1>
-                    <Image src="/nodata.png" width={500} height={500} />
+                    <Image src="/nodata.png" alt='no data' width={500} height={500} />
                 </div>
             ) : (
                 topics.map(t => (
