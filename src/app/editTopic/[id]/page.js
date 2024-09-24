@@ -33,6 +33,8 @@ const Page = async ({params}) => {
     console.log("Topic data:", topicData);
 
     const { title, description } = topicData.topic;
+    
+    
 
     return (
         <div>

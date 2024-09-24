@@ -1,32 +1,28 @@
 import Link from 'next/link';
 import Deletebtn from './Deletebtn';
-import Image from 'next/image'
+import Image from 'next/image';
 
 const getTopics = async () => {
-
-    
-
-    const apiUrl=process.env.API;
+    const apiUrl = process.env.API;
     try {
         const res = await fetch(`${apiUrl}/api/topics`, { cache: "no-store" });
         if (!res.ok) {
             throw new Error("Failed to load data");
         }
-       
         return res.json();
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        return { topics: [] }; // Return an empty topics array on error
     }
-}
+};
 
 const Card = async () => {
-    const { topics } = await getTopics();
-
+    const { topics } = await getTopics() || { topics: [] }; // Ensure topics is defined
 
     return (
         <>
             {topics.length === 0 ? (
-                <div className="w-full flex flex-col items-center justify-center  p-4  shadow-md rounded-lg mt-5 mb-5">
+                <div className="w-full flex flex-col items-center justify-center p-4 shadow-md rounded-lg mt-5 mb-5">
                     <h1 className="text-gray-400 text-xl font-semibold">No data available</h1>
                     <Image src="/nodata.png" alt='no data' width={500} height={500} />
                 </div>
@@ -55,7 +51,7 @@ const Card = async () => {
                 ))
             )}
         </>
-    )
-}
+    );
+};
 
 export default Card;
