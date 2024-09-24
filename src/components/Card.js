@@ -9,7 +9,9 @@ const getTopics = async () => {
         if (!res.ok) {
             throw new Error("Failed to load data");
         }
-        return res.json();
+        const data = await res.json(); // Await the JSON parsing
+        console.log(data); // Log the fetched data
+        return data; // Return the actual data object
     } catch (error) {
         console.error(error);
         return { topics: [] }; // Return an empty topics array on error
@@ -17,7 +19,8 @@ const getTopics = async () => {
 };
 
 const Card = async () => {
-    const { topics } = await getTopics() || { topics: [] }; // Ensure topics is defined
+    const data = await getTopics(); // Get data
+    const topics = data.topics || []; // Safely access topics
 
     return (
         <>
